@@ -1,4 +1,5 @@
 import { mainTemplate } from './maintemplate.js'
+import '../memory-game/js/memory.js'
 
 export default class MainWindow extends window.HTMLElement {
   constructor () {
@@ -17,7 +18,6 @@ export default class MainWindow extends window.HTMLElement {
     console.log(memory)
     console.log(memoryWindow)
     memory.addEventListener('click', () => {
-      customElements.get('.') // lkanskjnsdfkjsdfkjsdgkjbsdfkjsdkjsdfkj
       memoryWindow.appendChild(document.createElement('memory-game'))
     })
   }

@@ -14,9 +14,11 @@ export default class Memorygame extends window.HTMLElement {
     this.numberOfTries = 0
     this.turnedBricks = 0
     this.numberOfPairs = (this.rows * this.cols) / 2
+    this.imageFolder = './'
   }
 
   connectedCallback () {
+    console.log(this)
     const button = this.shadowRoot.querySelector('#button')
     const twoByTwo = this.shadowRoot.querySelectorAll('#button button')[0]
     const fourByTwo = this.shadowRoot.querySelectorAll('#button button')[1]
