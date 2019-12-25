@@ -8,7 +8,18 @@ export default class MainWindow extends window.HTMLElement {
   }
 
   connectedCallback () {
-    console.log('hej')
+    this.addingEvents()
+  }
+
+  addingEvents () {
+    const memory = this.shadowRoot.querySelector('#memory')
+    const memoryWindow = document.querySelector('#memoryWindow')
+    console.log(memory)
+    console.log(memoryWindow)
+    memory.addEventListener('click', () => {
+      customElements.get('.') // lkanskjnsdfkjsdfkjsdgkjbsdfkjsdkjsdfkj
+      memoryWindow.appendChild(document.createElement('memory-game'))
+    })
   }
 }
 window.customElements.define('main-window', MainWindow)
