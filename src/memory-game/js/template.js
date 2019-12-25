@@ -1,6 +1,6 @@
 const memoryTemplate2x2 = document.createElement('template')
 memoryTemplate2x2.innerHTML = `
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/memory-game/css/style.css">
 <div id="header">
 <h1>Memory</h1>
 </div>
@@ -22,7 +22,7 @@ memoryTemplate2x2.innerHTML = `
 
 const memoryTemplate4x4 = document.createElement('template')
 memoryTemplate4x4.innerHTML = `
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/memory-game/css/style.css">
 <div id="header">
 <h1>Memory</h1>
 </div>

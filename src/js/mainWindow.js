@@ -15,8 +15,6 @@ export default class MainWindow extends window.HTMLElement {
   addingEvents () {
     const memory = this.shadowRoot.querySelector('#memory')
     const memoryWindow = document.querySelector('#memoryWindow')
-    console.log(memory)
-    console.log(memoryWindow)
     memory.addEventListener('click', () => {
       memoryWindow.appendChild(document.createElement('memory-game'))
     })

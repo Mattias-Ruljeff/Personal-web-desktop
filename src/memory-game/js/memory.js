@@ -14,11 +14,10 @@ export default class Memorygame extends window.HTMLElement {
     this.numberOfTries = 0
     this.turnedBricks = 0
     this.numberOfPairs = (this.rows * this.cols) / 2
-    this.imageFolder = './'
+    this.imageFolder = './memory-game/image/'
   }
 
   connectedCallback () {
-    console.log(this)
     const button = this.shadowRoot.querySelector('#button')
     const twoByTwo = this.shadowRoot.querySelectorAll('#button button')[0]
     const fourByTwo = this.shadowRoot.querySelectorAll('#button button')[1]
@@ -88,7 +87,7 @@ export default class Memorygame extends window.HTMLElement {
     for (let i = 0; i < this.rows * this.cols; i++) {
       const a = document.createElement('a')
       const img = document.createElement('img')
-      img.setAttribute('src', './image/0.png')
+      img.setAttribute('src', `${this.imageFolder}0.png`)
       img.id = this.numberArr[i]
       a.appendChild(img)
       imageBox.appendChild(a)
@@ -117,10 +116,10 @@ export default class Memorygame extends window.HTMLElement {
     const id = event.id
     if (!this.firstClick) {
       this.firstClick = event
-      event.setAttribute('src', `./image/${id}.png`)
+      event.setAttribute('src', `${this.imageFolder}${id}.png`)
     } else if (this.firstClick !== event) {
       this.secondClick = event
-      event.setAttribute('src', `./image/${id}.png`)
+      event.setAttribute('src', `${this.imageFolder}${id}.png`)
       if (this.firstClick && this.secondClick) {
         if (this.firstClick.id === this.secondClick.id) {
           setTimeout(() => {
@@ -136,8 +135,8 @@ export default class Memorygame extends window.HTMLElement {
           }
         } else if (this.firstClick !== this.secondClick) {
           window.setTimeout(() => {
-            this.firstClick.setAttribute('src', './image/0.png')
-            this.secondClick.setAttribute('src', './image/0.png')
+            this.firstClick.setAttribute('src', `${this.imageFolder}0.png`)
+            this.secondClick.setAttribute('src', `${this.imageFolder}0.png`)
             this.firstClick = undefined
             this.secondClick = undefined
           }, 1000)
