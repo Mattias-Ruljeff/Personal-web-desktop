@@ -22,6 +22,7 @@ body {
     width: 50px;
     height: 50px;
     margin-right: 5px;
+    border-radius: 10px;
     background-image: url('../image/memory.bmp');
     background-size: contain;
     background-repeat: no-repeat;

@@ -27,6 +27,9 @@ const memoryTemplate4x4 = document.createElement('template')
 memoryTemplate4x4.innerHTML = `
 <link rel="stylesheet" href="/memory-game/css/style.css">
 <div id="mainbox">
+<div id="windowTop">
+    <button class="closeWindow">X</button>
+</div>
 <div id="header">
 <h1>Memory</h1>
 </div>
