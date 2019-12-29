@@ -43,12 +43,6 @@ export default class Memorygame extends window.HTMLElement {
     closeButton.addEventListener('click', (button) => {
       this.remove()
     })
-    const mousePos = this.shadowRoot.querySelector('#windowTop')
-    mousePos.addEventListener('mousedown', (button) => {
-      // console.log(button.screenX)
-      // console.log(button.screenY)
-      console.log(mousePos.clientX)
-    })
   }
 
   disconnectedCallBack () {

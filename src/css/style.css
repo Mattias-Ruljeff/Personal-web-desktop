@@ -17,6 +17,10 @@ body {
     background-color: rgba(95, 158, 160, 0.473);
 }
 
+#memoryWindow {
+    width: 500px;
+    height: 500px;
+}
 
 #memory {
     width: 50px;
