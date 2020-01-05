@@ -1,0 +1,48 @@
+body {
+	margin: 0px;
+	background-color: bisque;
+}
+
+.mainbox{
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 1px solid rgb(189, 189, 189);
+	border-radius: 5px;
+}
+
+.username{
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 1px solid rgb(189, 189, 189);
+	border-radius: 5px;
+}
+
+#windowTop{
+	display: flex;
+	justify-content: flex-end;
+	width: 500px;
+	background-color: yellow;
+}
+
+
+#maincontent {
+	border: solid 1px black;
+	width: 300px;
+	min-height: 50px;
+	padding: 5px;
+}
+
+.hidden {
+	display: none;
+}
+
+.yourmessages {
+	background-color: white;
+}
+.othermessages {
+	background-color: grey;
+}
