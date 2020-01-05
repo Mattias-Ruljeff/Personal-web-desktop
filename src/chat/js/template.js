@@ -1,16 +1,17 @@
 const chatTemplate = document.createElement('template')
 chatTemplate.innerHTML = `
-<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="chat/css/style.css">
+<div class="mainbox">
+    <div class="windowTop">
+        <button class="closeWindow">X</button>
+    </div>
 <div class="username">
     <p>Enter your username:</p>
     <input id='usernameinput' type="text" minlength="1" maxlength="100">
     <button id='usernamebutton'>Ok</button>
 </div>
 
-<div class="mainbox">
-    <div id="windowTop">
-        <button class="closeWindow">X</button>
-    </div>
+<div class="chatbox">
 
     <div id="header">
         <h2>Chat-window</h2>
@@ -24,6 +25,7 @@ chatTemplate.innerHTML = `
     <div id="button">
         <button>Skicka</button>
     </div>
+</div>
 </div>
 <style>#imageBox {width: 100px;}</style>
 `

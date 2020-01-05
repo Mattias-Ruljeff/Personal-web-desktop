@@ -1,5 +1,6 @@
 import { mainTemplate } from './maintemplate.js'
 import '../memory-game/js/memory.js'
+import '../chat/js/chat-window.js'
 
 export default class MainWindow extends window.HTMLElement {
   constructor () {
@@ -21,6 +22,12 @@ export default class MainWindow extends window.HTMLElement {
       const memoryCreate = document.createElement('memory-game')
       memoryCreate.classList = 'memoryGameWindow'
       this.memoryWindow.appendChild(memoryCreate)
+    })
+    const chat = this.shadowRoot.querySelector('#chat')
+    chat.addEventListener('click', () => {
+      const chatCreate = document.createElement('chat-window')
+      chatCreate.classList = 'chatWindow'
+      this.memoryWindow.appendChild(chatCreate)
     })
     this.moveableDiv()
   }

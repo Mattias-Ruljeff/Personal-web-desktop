@@ -29,7 +29,7 @@ export default class ChatWindow extends window.HTMLElement {
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
     const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
     const userNameDiv = this.shadowRoot.querySelector('.username')
-    const chatWindow = this.shadowRoot.querySelector('.mainbox')
+    const chatWindow = this.shadowRoot.querySelector('.chatbox')
     chatWindow.classList.toggle('hidden')
     userNameButton.addEventListener('click', () => {
       this.message.username = inputyfield.value

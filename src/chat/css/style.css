@@ -1,7 +1,7 @@
-body {
+/* body {
 	margin: 0px;
 	background-color: bisque;
-}
+} */
 
 .mainbox{
 	width: 500px;
@@ -10,21 +10,43 @@ body {
 	align-items: center;
 	border: 1px solid rgb(189, 189, 189);
 	border-radius: 5px;
+	background-color: burlywood;
 }
 
+input {
+	margin: 2px;
+	padding: 2px;
+}
+button {
+	margin: 2px;
+}
+
+.chatbox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px;
+}
 .username{
 	width: 500px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	border: 1px solid rgb(189, 189, 189);
-	border-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background-color: burlywood;
+	background-color: burlywood;
 }
 
-#windowTop{
+.windowTop{
 	display: flex;
 	justify-content: flex-end;
 	width: 500px;
+	padding: 2px;
+	border: 1px solid rgb(189, 189, 189);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 	background-color: yellow;
 }
 
@@ -34,6 +56,10 @@ body {
 	width: 300px;
 	min-height: 50px;
 	padding: 5px;
+	border: solid 1px grey;
+	border-radius: 3px;
+	background-color: gainsboro;
+	overflow-wrap: break-word;
 }
 
 .hidden {

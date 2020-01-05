@@ -1,0 +1,2 @@
+-Fixa bugg vid div-flytt (target-problem vid klick bredvid ruta, queryselector undefined)
+-websocket undefined 
