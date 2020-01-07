@@ -1,7 +1,6 @@
 const mainTemplate = document.createElement('template')
 mainTemplate.innerHTML = `
 <link rel="stylesheet" href="css/style.css">
-<script type="module" src=""></script>
 
 <div id="mainbox">
 

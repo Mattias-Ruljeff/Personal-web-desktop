@@ -1,13 +1,13 @@
 import { memoryTemplate2x2, memoryTemplate4x4 } from './template.js'
 
 export default class Memorygame extends window.HTMLElement {
-  constructor (rows, cols) {
+  constructor () {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(memoryTemplate2x2.content.cloneNode(true))
     this.tries = 0
-    this.rows = undefined
-    this.cols = undefined
+    this.rows = 2
+    this.cols = 2
     this.numberArr = []
     this.firstClick = undefined
     this.secondClick = undefined
@@ -15,32 +15,55 @@ export default class Memorygame extends window.HTMLElement {
     this.turnedBricks = 0
     this.numberOfPairs = (this.rows * this.cols) / 2
     this.imageFolder = './memory-game/image/'
+    this.gamewidth = ''
   }
 
   connectedCallback () {
+    this.createBoard()
     const button = this.shadowRoot.querySelector('#button')
     const twoByTwo = this.shadowRoot.querySelectorAll('#button button')[0]
     const fourByTwo = this.shadowRoot.querySelectorAll('#button button')[1]
     const fourByFour = this.shadowRoot.querySelectorAll('#button button')[2]
     button.addEventListener('click', (buttonClick) => {
       if (buttonClick.target === twoByTwo) {
+        this.clearBoard()
+        this.firstClick = undefined
+        this.secondClick = undefined
+        this.numberOfTries = 0
+        this.turnedBricks = 0
         this.cols = 2
         this.rows = 2
+        this.numberOfPairs = (this.rows * this.cols) / 2
+        this.gamewidth = '150px'
         this.createBoard()
       }
       if (buttonClick.target === fourByTwo) {
+        this.clearBoard()
+        this.firstClick = undefined
+        this.secondClick = undefined
+        this.numberOfTries = 0
+        this.turnedBricks = 0
         this.cols = 4
         this.rows = 2
+        this.numberOfPairs = (this.rows * this.cols) / 2
+        this.gamewidth = '300px'
         this.createBoard()
       }
       if (buttonClick.target === fourByFour) {
+        this.clearBoard()
+        this.firstClick = undefined
+        this.secondClick = undefined
+        this.numberOfTries = 0
+        this.turnedBricks = 0
         this.cols = 4
         this.rows = 4
+        this.numberOfPairs = (this.rows * this.cols) / 2
+        this.gamewidth = '300px'
         this.createBoard()
       }
     })
     const closeButton = this.shadowRoot.querySelector('.closeWindow')
-    closeButton.addEventListener('click', (button) => {
+    closeButton.addEventListener('click', () => {
       this.remove()
     })
   }
@@ -72,21 +95,21 @@ export default class Memorygame extends window.HTMLElement {
   }
 
   createBoard () {
-    this.clearBoard()
     this.numberArr = []
     this.turnedBricks = 0
     this.numberOfTries = 0
-    if (this.cols === 2) {
-      this.shadowRoot.appendChild(memoryTemplate2x2.content.cloneNode(true))
-      this.numberOfPairs = (this.rows * this.cols) / 2
-    } else {
-      this.shadowRoot.appendChild(memoryTemplate4x4.content.cloneNode(true))
-      this.numberOfPairs = (this.rows * this.cols) / 2
-    }
+    // if (this.cols === 2) {
+    //   this.shadowRoot.appendChild(memoryTemplate2x2.content.cloneNode(true))
+    //   this.numberOfPairs = (this.rows * this.cols) / 2
+    // } else {
+    //   this.shadowRoot.appendChild(memoryTemplate4x4.content.cloneNode(true))
+    //   this.numberOfPairs = (this.rows * this.cols) / 2
+    // }
     this.createArray()
-    const output = this.shadowRoot.querySelector('#mainbox')
+    const output = this.shadowRoot.querySelector('.mainbox')
     const imageBox = document.createElement('div')
     imageBox.id = 'imageBox'
+    imageBox.style.width = this.gamewidth
     output.appendChild(imageBox)
     for (let i = 0; i < this.rows * this.cols; i++) {
       const a = document.createElement('a')
@@ -100,9 +123,12 @@ export default class Memorygame extends window.HTMLElement {
   }
 
   clearBoard () {
-    while (this.shadowRoot.firstChild) {
-      this.shadowRoot.removeChild(this.shadowRoot.firstChild)
-    }
+    console.log(this)
+    const imageBox = this.shadowRoot.querySelector('#imageBox')
+    imageBox.remove()
+    // while (this.shadowRoot.firstChild) {
+    // this.shadowRoot.removeChild(this.shadowRoot.firstChild)
+    // }
   }
 
   makeImageClickable () {
@@ -110,7 +136,7 @@ export default class Memorygame extends window.HTMLElement {
     imageBox.addEventListener('click', (event) => {
       this.checkIfPair(event.target)
     })
-    this.connectedCallback()
+    // this.connectedCallback()
   }
 
   checkIfPair (event) {
@@ -151,7 +177,7 @@ export default class Memorygame extends window.HTMLElement {
   }
 
   winner () {
-    const imageBox = this.shadowRoot.querySelector('#mainbox')
+    const imageBox = this.shadowRoot.querySelector('#imageBox')
     const h2 = document.createElement('h2')
     h2.id = 'duVann'
     h2.textContent = `Du vann! Antal drag: ${this.numberOfTries}`

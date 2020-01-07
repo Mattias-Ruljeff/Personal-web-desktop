@@ -1,6 +1,6 @@
 import { mainTemplate } from './maintemplate.js'
-import '../memory-game/js/memory.js'
-import '../chat/js/chat-window.js'
+import '../memory-game/js/app.js'
+import '../chat/js/app.js'
 
 export default class MainWindow extends window.HTMLElement {
   constructor () {
@@ -9,11 +9,21 @@ export default class MainWindow extends window.HTMLElement {
     this.shadowRoot.appendChild(mainTemplate.content.cloneNode(true))
     this.prevX = undefined
     this.prevy = undefined
-    this.memoryWindow = document.querySelector('#memoryWindow')
+    this.appWindow = document.querySelector('#memoryWindow')
+    this.indexNumber = 1
+    this.tempIndex = 0
+    this.zIndex = []
+    // this.chatWindow = document.querySelector('#chatWindow')
   }
 
   connectedCallback () {
     this.addingEvents()
+  }
+
+  updateZIndex () {
+    for (let i = 0; i < this.zIndex.length; i++) {
+      this.zIndex[i].style.zIndex = i
+    }
   }
 
   addingEvents () {
@@ -21,20 +31,35 @@ export default class MainWindow extends window.HTMLElement {
     memory.addEventListener('click', () => {
       const memoryCreate = document.createElement('memory-game')
       memoryCreate.classList = 'memoryGameWindow'
-      this.memoryWindow.appendChild(memoryCreate)
+      memoryCreate.id = this.indexNumber
+      const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
+      mainBox.style.zIndex = `${this.indexNumber}`
+      // console.log(memoryCreate)
+      this.zIndex.push(mainBox)
+      this.updateZIndex()
+      // console.log(this.zIndex)
+      this.indexNumber++
+      this.appWindow.appendChild(memoryCreate)
+      // this.removeAppWindow()
     })
     const chat = this.shadowRoot.querySelector('#chat')
     chat.addEventListener('click', () => {
       const chatCreate = document.createElement('chat-window')
       chatCreate.classList = 'chatWindow'
-      this.memoryWindow.appendChild(chatCreate)
+      const mainBox = chatCreate.shadowRoot.querySelector('.mainbox')
+      mainBox.style.zIndex = `${this.indexNumber}`
+      this.zIndex.push(mainBox)
+      this.updateZIndex()
+      this.indexNumber++
+      this.appWindow.appendChild(chatCreate)
+      // this.removeAppWindow()
     })
     this.moveableDiv()
   }
 
   moveableDiv () {
-    this.memoryWindow.addEventListener('mousedown', (event) => {
-      const memoryGameWindow = event.target.shadowRoot.querySelector('#mainbox')
+    this.appWindow.addEventListener('mousedown', (event) => {
+      const memoryGameWindow = event.target.shadowRoot.querySelector('.mainbox')
       window.addEventListener('mousemove', mousemove)
       window.addEventListener('mouseup', mouseup)
 
@@ -60,36 +85,8 @@ export default class MainWindow extends window.HTMLElement {
     })
   }
 
-  mouseDown (event, mainBox) {
-    console.log(event, 'event i mousedown')
-    const test = event.getBoundingClientRect()
-    console.log(test.x)
-    this.prevX = test.x
-    this.prevY = test.y
-    console.log(this.prevX)
-    console.log(this.prevY)
-    window.addEventListener('mousemove', this.mouseMove(test, mainBox))
-    window.addEventListener('mouseup', this.mouseUp(test, mainBox))
-  }
-
-  mouseMove (event, mainBox) {
-    console.log(event.y, 'event i mousemove')
-    const newX = this.prevX - event.x
-    const newY = this.prevY - event.y
-
-    const rect = mainBox.getBoundingClientRect()
-    console.log(rect.top, 'rect top')
-    mainBox.top = rect.top - newY + 'px'
-    mainBox.left = rect.left - newX + 'px'
-
-    this.prevX = event.x
-    this.prevY = event.y
-    // console.log(event, 'event i mousemove')
-  }
-
-  mouseUp () {
-    window.removeEventListener('mousemove', this.mouseMove())
-    window.removeEventListener('mouseup', this.mouseUp())
+  removeAppWindow (appWindow) {
+    console.log(appWindow.shadowRoot)
   }
 }
 window.customElements.define('main-window', MainWindow)

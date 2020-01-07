@@ -17,10 +17,10 @@ body {
     background-color: rgba(95, 158, 160, 0.473);
 }
 
-#memoryWindow {
+/* #memoryWindow {
     width: 500px;
     height: 500px;
-}
+} */
 
 #memory {
     width: 50px;
@@ -36,11 +36,17 @@ body {
     width: 50px;
     height: 50px;
     margin-right: 5px;
-    background-color: chartreuse;
+    border-radius: 10px;
+    background-image: url('../image/memory.bmp');
+    background-size: contain;
+    background-repeat: no-repeat;
 
 }
 #otherapp {
     width: 50px;
     height: 50px;
-    background-color: coral;
+    border-radius: 10px;
+    background-image: url('../image/memory.bmp');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
