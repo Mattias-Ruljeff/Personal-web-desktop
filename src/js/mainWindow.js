@@ -1,6 +1,7 @@
 import { mainTemplate } from './maintemplate.js'
 import '../memory-game/js/app.js'
 import '../chat/js/app.js'
+import '../app-window/app.js'
 
 export default class MainWindow extends window.HTMLElement {
   constructor () {
@@ -10,7 +11,7 @@ export default class MainWindow extends window.HTMLElement {
     this.prevX = undefined
     this.prevy = undefined
     this.appWindow = document.querySelector('#memoryWindow')
-    this.indexNumber = 1
+    this.indexNumber = 0
     this.tempIndex = 0
     this.zIndex = []
     // this.chatWindow = document.querySelector('#chatWindow')
@@ -29,18 +30,20 @@ export default class MainWindow extends window.HTMLElement {
   addingEvents () {
     const memory = this.shadowRoot.querySelector('#memory')
     memory.addEventListener('click', () => {
+      const appWindow = document.createElement('app-window')
+      const appWindowMainbox = appWindow.shadowRoot.querySelector('.mainbox')
+      console.log(appWindowMainbox)
       const memoryCreate = document.createElement('memory-game')
       memoryCreate.classList = 'memoryGameWindow'
       memoryCreate.id = this.indexNumber
       const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
       mainBox.style.zIndex = `${this.indexNumber}`
-      // console.log(memoryCreate)
+      appWindowMainbox.appendChild(memoryCreate)
       this.zIndex.push(mainBox)
       this.updateZIndex()
-      // console.log(this.zIndex)
       this.indexNumber++
-      this.appWindow.appendChild(memoryCreate)
-      // this.removeAppWindow()
+      console.log(appWindow)
+      this.appWindow.appendChild(appWindow)
     })
     const chat = this.shadowRoot.querySelector('#chat')
     chat.addEventListener('click', () => {
@@ -52,7 +55,6 @@ export default class MainWindow extends window.HTMLElement {
       this.updateZIndex()
       this.indexNumber++
       this.appWindow.appendChild(chatCreate)
-      // this.removeAppWindow()
     })
     this.moveableDiv()
   }
@@ -60,6 +62,11 @@ export default class MainWindow extends window.HTMLElement {
   moveableDiv () {
     this.appWindow.addEventListener('mousedown', (event) => {
       const memoryGameWindow = event.target.shadowRoot.querySelector('.mainbox')
+      const tempIndex = memoryGameWindow.style.zIndex
+      this.zIndex.splice(tempIndex, 1)
+      this.zIndex.push(memoryGameWindow)
+      this.updateZIndex()
+
       window.addEventListener('mousemove', mousemove)
       window.addEventListener('mouseup', mouseup)
 
@@ -83,10 +90,6 @@ export default class MainWindow extends window.HTMLElement {
         window.removeEventListener('mouseup', mouseup)
       }
     })
-  }
-
-  removeAppWindow (appWindow) {
-    console.log(appWindow.shadowRoot)
   }
 }
 window.customElements.define('main-window', MainWindow)

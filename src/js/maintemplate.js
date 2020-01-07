@@ -13,4 +13,5 @@ mainTemplate.innerHTML = `
 </div>
 </div>
 `
+
 export { mainTemplate }

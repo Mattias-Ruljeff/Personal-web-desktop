@@ -50,3 +50,13 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+.mainbox {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+
+.mainbox #windowTop {
+    width: 100px;
+}
