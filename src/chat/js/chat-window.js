@@ -5,7 +5,7 @@ export default class ChatWindow extends window.HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(chatTemplate.content.cloneNode(true))
-    this.chatSocket = new WebSocket('ws://vhost3.lnu.se:20080/socket/')
+    this.chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/')
     this.message = {
       type: 'message',
       data: '',
@@ -22,7 +22,9 @@ export default class ChatWindow extends window.HTMLElement {
   }
 
   disconnectedCallBack () {
-
+    this.chatSocket.close()
+    this.removeEventListener('click', this.shadowRoot.querySelector('#usernamebutton'))
+    this.removeEventListener(this.userNameEntry)
   }
 
   userNameEntry () {

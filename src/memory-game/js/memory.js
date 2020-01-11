@@ -1,4 +1,4 @@
-import { memoryTemplate2x2, memoryTemplate4x4 } from './template.js'
+import { memoryTemplate2x2 } from './template.js'
 
 export default class Memorygame extends window.HTMLElement {
   constructor () {
@@ -115,6 +115,7 @@ export default class Memorygame extends window.HTMLElement {
       const a = document.createElement('a')
       const img = document.createElement('img')
       img.setAttribute('src', `${this.imageFolder}0.png`)
+      img.setAttribute('tabindex', '0')
       img.id = this.numberArr[i]
       a.appendChild(img)
       imageBox.appendChild(a)
@@ -123,12 +124,8 @@ export default class Memorygame extends window.HTMLElement {
   }
 
   clearBoard () {
-    console.log(this)
     const imageBox = this.shadowRoot.querySelector('#imageBox')
     imageBox.remove()
-    // while (this.shadowRoot.firstChild) {
-    // this.shadowRoot.removeChild(this.shadowRoot.firstChild)
-    // }
   }
 
   makeImageClickable () {
@@ -136,7 +133,12 @@ export default class Memorygame extends window.HTMLElement {
     imageBox.addEventListener('click', (event) => {
       this.checkIfPair(event.target)
     })
-    // this.connectedCallback()
+    imageBox.addEventListener('keydown', (event) => {
+      if (event.keyCode === 13) {
+        event.preventDefault()
+        this.checkIfPair(event.target)
+      }
+    })
   }
 
   checkIfPair (event) {
