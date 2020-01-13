@@ -17,10 +17,11 @@ body {
     background-color: rgba(95, 158, 160, 0.473);
 }
 
-/* #memoryWindow {
+#windowTop {
     width: 500px;
     height: 500px;
-} */
+    background-color: blue;
+}
 
 #memory {
     width: 50px;
@@ -59,4 +60,14 @@ body {
 
 .mainbox #windowTop {
     width: 100px;
+}
+
+.windowTop {
+    width: 300px;
+    height: 30px;
+    background-color: blue;
+}
+
+.closeWindow {
+    float: right;
 }
