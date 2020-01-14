@@ -46,7 +46,6 @@ export default class ChatWindow extends window.HTMLElement {
     const chatWindow = this.shadowRoot.querySelector('.chatbox')
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
     const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
-    console.log(inputyfield.value)
     inputyfield.value = ''
     chatWindow.classList.add('hidden')
     userNameButton.addEventListener('click', () => {

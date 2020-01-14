@@ -9,7 +9,7 @@ body {
 	width: fit-content;
 	height: fit-content;
     border: solid 1px grey;
-    border-radius: 2px;
+    border-radius: 5px;
     background-color: rgb(198, 205, 211);
     display: flex;
     flex-direction: column;
@@ -35,7 +35,6 @@ body {
 #usernameinput {
 	font-family: cursive;
 	padding: 5px;
-
 }
 
 .mainbox{
@@ -43,12 +42,13 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: orange;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .username{
 	width: 500px;
-	background-image: linear-gradient(to right,red, yellow);
+	background-color: #BFC0C0;
 	background-repeat: no-repeat;
 	display: flex;
 	flex-direction: column;
@@ -65,8 +65,7 @@ body {
 	display: flex;
 	justify-content: flex-end;
 	width: 500px;
-	padding: 1px;
-	background-color: yellow;
+	background-color: #3E885B;
 }
 
 

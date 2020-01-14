@@ -9,11 +9,13 @@
     position: absolute;
     width: 305px;
     border: solid 1px grey;
-    border-radius: 2px;
-    background-color: rgb(198, 205, 211);
+    border-radius: 5px;
+    background-color: #39B54A;
     display: flex;
     flex-direction: column;
     align-items: center; 
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 #mainheader h2{
@@ -45,7 +47,8 @@
     justify-content: flex-end;
     height: 25px;
     min-width: 305px;
-    background-color: rgb(121, 155, 150);
+    background-color: #3E885B;
+
 }
 
 .closeWindow {

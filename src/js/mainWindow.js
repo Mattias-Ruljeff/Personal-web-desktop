@@ -93,7 +93,7 @@ export default class MainWindow extends window.HTMLElement {
         const newX = prevX - event.clientX
         const newY = prevY - event.clientY
         const rect = appWindow.getBoundingClientRect()
-        console.log(rect)
+        // console.log(rect)
         appWindow.style.left = rect.left - newX + 'px'
         appWindow.style.top = rect.top - newY + 'px'
         prevX = event.clientX
