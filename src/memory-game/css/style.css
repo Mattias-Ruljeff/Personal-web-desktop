@@ -1,7 +1,11 @@
 #header {
     display: flex;
+    width: 150px;
     flex-direction: column;
     align-items: center;
+    border: 2px dotted rgb(23, 209, 255);
+    border-radius: 30px;
+    margin-top: 5px;
     
 }
 
@@ -16,6 +20,7 @@
     align-items: center; 
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    font-family: cursive;
 }
 
 #mainheader h2{
@@ -23,6 +28,7 @@
 }
 
 #imageBox {
+    text-align: center;
     width: 150px;
 }
 
@@ -36,9 +42,23 @@
 
 #button {
     display: flex;
+    width: 150px;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
+    
     margin-bottom: 2px;
+
+}
+
+#gamesize {
+    background-color: rgb(23, 209, 255);
+    border: 3px solid rgba(62, 62, 255, 0.274);
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 2px;
+    font-family: cursive;
+    font-size: large;
 }
 
 #windowTop {
@@ -54,4 +74,6 @@
 .closeWindow {
     display: flex;
     justify-items: flex-end;
+    border-radius: 2px;
+    background-color: #EE6352;
 }

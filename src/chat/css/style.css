@@ -10,6 +10,7 @@
 	flex-direction: column;
 	align-items: center;
 	border-radius: 5px;
+	font-family: cursive;
 }
 
 input {
@@ -39,9 +40,15 @@ input {
 	background-color: #39B2A1;
 }
 
-#changeUsername {
-	margin-top: 5px;
-	margin-bottom: 5px;
+#changeUsername, #send, #usernamebutton {
+    background-color: rgb(23, 209, 255);
+    border: 3px solid rgba(62, 62, 255, 0.274);
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 2px;
+    font-family: cursive;
+    font-size: large;
 }
 
 .windowTop{
@@ -57,7 +64,7 @@ input {
 #maincontent {
 	border: solid 1px black;
 	width: 300px;
-	min-height: 50px;
+	min-height: 300px;
 	padding: 5px;
 	border: solid 1px grey;
 	border-radius: 3px;

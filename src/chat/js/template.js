@@ -25,7 +25,7 @@ chatTemplate.innerHTML = `
     <input id='chatmessage' type="text" minlength="1" maxlength="100">
 
     <div id="button">
-        <button>Send</button>
+        <button id='send'>Send</button>
     </div>
 </div>
 </div>

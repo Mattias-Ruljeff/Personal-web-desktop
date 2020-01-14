@@ -163,10 +163,7 @@ export default class Memorygame extends window.HTMLElement {
 
   winner () {
     const imageBox = this.shadowRoot.querySelector('#imageBox')
-    const h2 = document.createElement('h2')
-    h2.id = 'duVann'
-    h2.textContent = `Du vann! Antal drag: ${this.numberOfTries}`
-    imageBox.appendChild(h2)
+    imageBox.textContent = `You won! Number of tries: ${this.numberOfTries}`
   }
 }
 

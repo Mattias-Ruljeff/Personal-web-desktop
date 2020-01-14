@@ -12,8 +12,6 @@ export default class Game extends window.HTMLElement {
     this.usernameBox = this.shadowRoot.querySelector('.username')
     this.gameOverBox = this.shadowRoot.querySelector('.gameover')
     this.scoreBoard = this.shadowRoot.querySelector('#scoreboard')
-    this._gamePaddlesStartX = 10
-    this._gamePaddlesStartY = 20
     this.playerPaddleSpeed = 10
     this.score = 0
     this.ballX = 250
@@ -24,8 +22,8 @@ export default class Game extends window.HTMLElement {
     this.ballDeltaFactor = 0.1
     this.ballSpeedX = 2
     this.ballSpeedY = -1.5
-    this.playerX = 200
-    this.playerY = 480
+    this.playerXStart = 200
+    this.playerYStart = 480
     this.computerX = 100
     this.computerY = 5
     this._computerPaddleWidth = 150
@@ -40,12 +38,44 @@ export default class Game extends window.HTMLElement {
   connectedCallback () {
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
     const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
-    userNameButton.addEventListener('click', this.startGame.bind(this))
-    inputyfield.addEventListener('keypress', (event) => {
+    inputyfield.focus()
+    userNameButton.addEventListener('click', () => {
+      this.startGame()
+    })
+    document.addEventListener('keypress', (event) => {
       if (event.keyCode === 13) {
         event.preventDefault()
-        userNameButton.click()
+        if (this.usernameBox.classList[1] === 'hidden') {
+          resetButton.click()
+        } else {
+          userNameButton.click()
+        }
       }
+    })
+    window.addEventListener('keydown', e => {
+      // e.preventDefault()
+      if (e.code === 'ArrowLeft') {
+        console.log(this.playerPaddleSpeed)
+        if (this.playerXStart === 0) {
+          this.playerXStart = this.playerXStart
+        } else {
+          this.playerXStart += -this.playerPaddleSpeed
+        }
+      }
+      if (e.code === 'ArrowRight') {
+        if ((this.playerXStart + this._paddleWidth) === this.canvas.width) {
+          this.playerXStart = this.playerXStart
+        } else {
+          this.playerXStart += this.playerPaddleSpeed
+        }
+      }
+    })
+    const resetButton = this.shadowRoot.querySelector('#restartgame')
+    resetButton.addEventListener('click', () => {
+      if (this.scoreBoard.firstElementChild) {
+        this.scoreBoard.firstElementChild.remove()
+      }
+      this.userNameEntry()
     })
     this.userNameEntry()
     this.closeButton()
@@ -57,7 +87,8 @@ export default class Game extends window.HTMLElement {
 
   userNameEntry () {
     clearInterval(this.updateGame)
-
+    const inputyfield = this.shadowRoot.querySelector('#usernameinput')
+    inputyfield.value = ''
     this.usernameBox.classList.remove('hidden')
     this.gameOverBox.classList.add('hidden')
     this.canvasBox.classList.add('hidden')
@@ -65,37 +96,24 @@ export default class Game extends window.HTMLElement {
     if (window.localStorage.highscore) {
       this.highscore = JSON.parse(window.localStorage.getItem('highscore'))
     }
-    // const inputyfield = this.shadowRoot.querySelector('#usernameinput')
-    // const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
-    // userNameButton.addEventListener('click', this.startGame.bind(this))
-    // inputyfield.addEventListener('keypress', (event) => {
-    //   if (event.keyCode === 13) {
-    //     event.preventDefault()
-    //     userNameButton.click()
-    //   }
-    // })
   }
 
   startGame () {
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
-    const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
-    userNameButton.removeEventListener('click', this.startGame)
+
     if (inputyfield.value) {
       this.username = inputyfield.value
       this.usernameBox.classList.add('hidden')
       this.canvasBox.classList.remove('hidden')
       this.createcanvas()
-      this.keypress()
-      window.localStorage.setItem('highscore', JSON.stringify(this.highscore))
+      // this.keypress()
       this.resetGameSetting()
-      // setTimeout(() => {
       this.updateGame = setInterval(() => {
         this.createGameScreen()
         this.moveUpdate()
       }, 1000 / this.fps)
-      // }, 500)
     } else {
-      this.querySelector('#insertname').classList.remove('hidden')
+      this.shadowRoot.querySelector('#insertname').classList.remove('hidden')
     }
   }
 
@@ -105,76 +123,30 @@ export default class Game extends window.HTMLElement {
     this.ballSpeedX = 2
     this.ballSpeedY = -1.5
     this._computerPaddleWidth = 150
-    this.playerX = 200
-    this.playerY = 480
+    this.playerXStart = 200
+    this.playerYStart = 480
     this.computerX = 100
     this.score = 0
-  }
-
-  keypress () {
-    window.addEventListener('keydown', e => {
-      // e.preventDefault()
-      if (e.code === 'ArrowLeft') {
-        if (this.playerX === 0) {
-          this.playerX = this.playerX
-        } else {
-          this.playerX += -this.playerPaddleSpeed
-        }
-      }
-
-      if (e.code === 'ArrowRight') {
-        if ((this.playerX + this._paddleWidth) === this.canvas.width) {
-          this.playerX = this.playerX
-        } else {
-          this.playerX += this.playerPaddleSpeed
-        }
-      }
-    })
+    this.playerPaddleSpeed = 10
   }
 
   gameReset () {
     clearInterval(this.updateGame)
-    this.updateGame = 0
-    const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
-    userNameButton.removeEventListener('click', this.startGame)
     this.canvasBox.firstElementChild.remove()
-
     this.canvasBox.classList.add('hidden')
     this.gameOverBox.classList.remove('hidden')
-    const resetButton = this.shadowRoot.querySelector('#restartgame')
-    const highscoreArray = Object.keys(this.highscore)
     if (this.score > 0) {
-      highscoreArray.forEach((name) => { // nisse 1, ada 2, hej 5 , spelande hej 1
-        if (this.username !== name) { // hej 1
+      if (this.highscore[this.username]) {
+        if (this.score > this.highscore[this.username]) { // this.highscore[this.username] = 5
           this.highscore[this.username] = this.score
-        } else {
-          if (this.score > this.highscore[this.username]) { // this.highscore[this.username] = 5
-            console.log('större score än lagrat highscore')
-            this.highscore[this.username] = this.score
-          }
+          console.log(this.username, this.highscore, 'befintlig spelare har bytt högsta poäng')
         }
-      })
-      window.localStorage.setItem('highscore', JSON.stringify(this.highscore))
-    }
-
-    this.createScoreBoard()
-
-    resetButton.addEventListener('click', () => {
-      this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width)
-      this.scoreBoard.firstElementChild.remove()
-      this.scoreBoard.lastElementChild.remove()
-      this.userNameEntry()
-    })
-    document.addEventListener('keypress', (event) => {
-      if (event.keyCode === 13) {
-        event.preventDefault()
-        resetButton.click()
+      } else {
+        this.highscore[this.username] = this.score
+        console.log('nytt namn i highscore')
       }
-    }, { once: true })
-  }
-
-  winGame () {
-    this.ctx.fillText('Score:', 100, 50)
+    }
+    this.createScoreBoard()
   }
 
   computerMovement () {
@@ -216,9 +188,9 @@ export default class Game extends window.HTMLElement {
       }
     }
     // Check if ball collides with player-paddle-top
-    if ((this.ballY + this.ballRadius) > this.playerY && this.ballX > this.playerX && this.ballX < (this.playerX + this._paddleWidth)) {
+    if ((this.ballY + this.ballRadius) > this.playerYStart && this.ballX > this.playerXStart && this.ballX < (this.playerXStart + this._paddleWidth)) {
       this.ballSpeedY = -this.ballSpeedY
-      const deltaX = this.ballX - (this.playerX + (this._paddleWidth / 2))
+      const deltaX = this.ballX - (this.playerXStart + (this._paddleWidth / 2))
       this.ballSpeedX = deltaX * this.ballDeltaFactor
       this.checkBallSpeed()
     }
@@ -261,9 +233,10 @@ export default class Game extends window.HTMLElement {
     this.ctx.font = '20px serif'
     this.ctx.fillStyle = 'white'
     this.ctx.fillText(`Score: ${this.score}`, 200, 50, 100)
+    this.ctx.fillText(`Player name: ${this.username}`, 175, 80, 150)
 
     // Player
-    this.createRectangle(this.playerX, this.playerY, this._paddleWidth, this._paddleHeight, 'white')
+    this.createRectangle(this.playerXStart, this.playerYStart, this._paddleWidth, this._paddleHeight, 'white')
     this.createRectangle(this.computerX, this.computerY, this._computerPaddleWidth, this._paddleHeight, 'white')
 
     // Ball
@@ -271,13 +244,12 @@ export default class Game extends window.HTMLElement {
   }
 
   createScoreBoard () {
-    const playersToScoreBoard = JSON.parse(window.localStorage.highscore)
-    if (playersToScoreBoard.length < 1) {
-    } else {
+    const nameAndScore = this.shadowRoot.querySelector('#nameandscore')
+    nameAndScore.textContent = `${this.username} got ${this.score} points!`
+    const playersToScoreBoard = this.highscore
+    const playerscoreboardArray = Object.keys(this.highscore)
+    if (playerscoreboardArray.length >= 1) {
       const listElements = this.shadowRoot.querySelector('#scoreboard')
-      const h2 = document.createElement('h2')
-      h2.textContent = 'Best scores:'
-      listElements.appendChild(h2)
       listElements.appendChild(document.createElement('ol'))
       const nameArray = []
       for (const obj in playersToScoreBoard) {
@@ -286,11 +258,8 @@ export default class Game extends window.HTMLElement {
       nameArray.sort(function (a, b) {
         return b[0] - a[0]
       })
-
       if (nameArray.length > 5) {
-        for (let i = 5; i < nameArray.length; i++) {
-          window.localStorage.removeItem(nameArray[5])
-        }
+        nameArray.pop()
       }
       this.highscore = {}
       nameArray.forEach((element) => {
@@ -299,10 +268,11 @@ export default class Game extends window.HTMLElement {
 
       const olList = this.shadowRoot.querySelector('#scoreboard ol')
       for (let i = 0; i < nameArray.length; i++) {
-        const div = document.createElement('li')
-        div.textContent = nameArray[i][1] + ', ' + nameArray[i][0] + ' poäng'
-        olList.appendChild(div)
+        const li = document.createElement('li')
+        li.textContent = nameArray[i][1] + ', ' + nameArray[i][0] + ' points'
+        olList.appendChild(li)
       }
+      window.localStorage.setItem('highscore', JSON.stringify(this.highscore))
     }
   }
 
@@ -322,7 +292,7 @@ export default class Game extends window.HTMLElement {
 
   closeButton () {
     const closeButton = this.shadowRoot.querySelector('.closeWindow')
-    closeButton.addEventListener('click', (button) => {
+    closeButton.addEventListener('click', () => {
       this.remove()
     })
   }

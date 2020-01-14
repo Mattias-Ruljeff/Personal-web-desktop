@@ -37,7 +37,6 @@ export default class MainWindow extends window.HTMLElement {
 
   addingEvents () {
     const memory = this.shadowRoot.querySelector('#memory')
-    const appWindowArray = this.shadowRoot.querySelectorAll('#appWindow')
 
     memory.addEventListener('click', (e) => {
       const memoryCreate = document.createElement('memory-game')
@@ -46,12 +45,10 @@ export default class MainWindow extends window.HTMLElement {
       const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
       mainBox.style.zIndex = `${this.indexNumber}`
       this.appWindow.appendChild(memoryCreate)
-      // appDiv.appendChild(memoryCreate)
       this.zIndex.push(mainBox)
       this.updateZIndex()
       this.indexNumber++
       this.elementArr.push(memoryCreate)
-      // this.closeButton()
     })
     const chat = this.shadowRoot.querySelector('#chat')
     chat.addEventListener('click', () => {
