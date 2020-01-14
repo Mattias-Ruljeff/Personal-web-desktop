@@ -27,10 +27,6 @@ export default class Memorygame extends window.HTMLElement {
     button.addEventListener('click', (buttonClick) => {
       if (buttonClick.target === twoByTwo) {
         this.clearBoard()
-        this.firstClick = undefined
-        this.secondClick = undefined
-        this.numberOfTries = 0
-        this.turnedBricks = 0
         this.cols = 2
         this.rows = 2
         this.numberOfPairs = (this.rows * this.cols) / 2
@@ -39,10 +35,6 @@ export default class Memorygame extends window.HTMLElement {
       }
       if (buttonClick.target === fourByTwo) {
         this.clearBoard()
-        this.firstClick = undefined
-        this.secondClick = undefined
-        this.numberOfTries = 0
-        this.turnedBricks = 0
         this.cols = 4
         this.rows = 2
         this.numberOfPairs = (this.rows * this.cols) / 2
@@ -51,10 +43,6 @@ export default class Memorygame extends window.HTMLElement {
       }
       if (buttonClick.target === fourByFour) {
         this.clearBoard()
-        this.firstClick = undefined
-        this.secondClick = undefined
-        this.numberOfTries = 0
-        this.turnedBricks = 0
         this.cols = 4
         this.rows = 4
         this.numberOfPairs = (this.rows * this.cols) / 2
@@ -95,22 +83,17 @@ export default class Memorygame extends window.HTMLElement {
   }
 
   createBoard () {
-    this.numberArr = []
+    this.firstClick = undefined
+    this.secondClick = undefined
     this.turnedBricks = 0
     this.numberOfTries = 0
-    // if (this.cols === 2) {
-    //   this.shadowRoot.appendChild(memoryTemplate2x2.content.cloneNode(true))
-    //   this.numberOfPairs = (this.rows * this.cols) / 2
-    // } else {
-    //   this.shadowRoot.appendChild(memoryTemplate4x4.content.cloneNode(true))
-    //   this.numberOfPairs = (this.rows * this.cols) / 2
-    // }
+    this.numberArr = []
     this.createArray()
-    const output = this.shadowRoot.querySelector('.mainbox')
+    const mainDiv = this.shadowRoot.querySelector('.mainbox')
     const imageBox = document.createElement('div')
     imageBox.id = 'imageBox'
     imageBox.style.width = this.gamewidth
-    output.appendChild(imageBox)
+    mainDiv.appendChild(imageBox)
     for (let i = 0; i < this.rows * this.cols; i++) {
       const a = document.createElement('a')
       const img = document.createElement('img')

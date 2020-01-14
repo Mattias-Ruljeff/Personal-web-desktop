@@ -12,7 +12,9 @@ chatTemplate.innerHTML = `
 </div>
 
 <div class="chatbox">
-
+    <button id='changeUsername'>Change username</button>
+    <div id='yourUserName'>
+    </div>
     <div id="header">
         <h2>Chat-window</h2>
     </div>
@@ -23,7 +25,7 @@ chatTemplate.innerHTML = `
     <input id='chatmessage' type="text" minlength="1" maxlength="100">
 
     <div id="button">
-        <button>Skicka</button>
+        <button>Send</button>
     </div>
 </div>
 </div>

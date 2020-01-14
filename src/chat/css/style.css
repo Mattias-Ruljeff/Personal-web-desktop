@@ -5,7 +5,7 @@
 
 .mainbox{
 	position: absolute;
-	width: 500px;
+	width: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -23,7 +23,7 @@ button {
 }
 
 .chatbox {
-	width: 500px;
+	width: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -34,7 +34,7 @@ button {
 	background-color: burlywood;
 }
 .username{
-	width: 500px;
+	width: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -48,7 +48,7 @@ button {
 .windowTop{
 	display: flex;
 	justify-content: flex-end;
-	width: 500px;
+	width: 400px;
 	padding: 2px;
 	border: 1px solid rgb(189, 189, 189);
 	border-top-left-radius: 5px;

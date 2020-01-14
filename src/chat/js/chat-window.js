@@ -16,7 +16,7 @@ export default class ChatWindow extends window.HTMLElement {
   }
 
   connectedCallback () {
-    this.userNameEntry()
+    this.checkForUsername()
     this.sendOwnMessage()
     this.closeButton()
   }
@@ -27,16 +27,34 @@ export default class ChatWindow extends window.HTMLElement {
     this.removeEventListener(this.userNameEntry)
   }
 
+  checkForUsername () {
+    if (!window.localStorage.username) {
+      this.userNameEntry()
+    } else {
+      const userNameDiv = this.shadowRoot.querySelector('.username')
+      const chatWindow = this.shadowRoot.querySelector('.chatbox')
+      userNameDiv.classList.add('hidden')
+      chatWindow.classList.remove('hidden')
+      this.message.username = JSON.parse(window.localStorage.username)
+      this.printUsernameInDiv()
+      this.createWebSocket()
+    }
+  }
+
   userNameEntry () {
-    const inputyfield = this.shadowRoot.querySelector('#usernameinput')
-    const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
     const userNameDiv = this.shadowRoot.querySelector('.username')
     const chatWindow = this.shadowRoot.querySelector('.chatbox')
-    chatWindow.classList.toggle('hidden')
+    const inputyfield = this.shadowRoot.querySelector('#usernameinput')
+    const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
+    console.log(inputyfield.value)
+    inputyfield.value = ''
+    chatWindow.classList.add('hidden')
     userNameButton.addEventListener('click', () => {
       this.message.username = inputyfield.value
+      window.localStorage.setItem('username', JSON.stringify(this.message.username))
       userNameDiv.classList.toggle('hidden')
       chatWindow.classList.toggle('hidden')
+      this.printUsernameInDiv()
       this.createWebSocket()
     })
     inputyfield.addEventListener('keydown', (event) => {
@@ -44,6 +62,20 @@ export default class ChatWindow extends window.HTMLElement {
         event.preventDefault()
         userNameButton.click()
       }
+    })
+  }
+
+  printUsernameInDiv () {
+    const usernameDiv = this.shadowRoot.querySelector('#yourUserName')
+    usernameDiv.textContent = `Your username: ${this.message.username}`
+    const changeUsername = this.shadowRoot.querySelector('.chatbox #changeUsername')
+
+    changeUsername.addEventListener('click', () => {
+      const userNameDiv = this.shadowRoot.querySelector('.username')
+      const chatWindow = this.shadowRoot.querySelector('.chatbox')
+      userNameDiv.classList.remove('hidden')
+      chatWindow.classList.add('hidden')
+      this.userNameEntry()
     })
   }
 
@@ -84,7 +116,8 @@ export default class ChatWindow extends window.HTMLElement {
   addmessage (message) {
     const messageBox = this.shadowRoot.querySelector('#maincontent')
     const p = document.createElement('p')
-    if (message.data) {
+    if (message.type === 'notification') {
+    } else if (message.data) {
       p.textContent = `${message.username}: ${message.data}`
       messageBox.appendChild(p)
     }

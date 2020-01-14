@@ -1,14 +1,14 @@
 import { mainTemplate } from './maintemplate.js'
 import '../memory-game/js/app.js'
 import '../chat/js/app.js'
-import '../app-window/app.js'
+import '../paddle/js/app.js'
 
 export default class MainWindow extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(mainTemplate.content.cloneNode(true))
-    this.appWindow = document.querySelector('#memoryWindow')
+    this.appWindow = document.querySelector('#appWindow')
     this.memoryGameWindow = this.shadowRoot.querySelector('.mainbox')
     this.prevX = undefined
     this.prevY = undefined
@@ -37,6 +37,7 @@ export default class MainWindow extends window.HTMLElement {
 
   addingEvents () {
     const memory = this.shadowRoot.querySelector('#memory')
+    const appWindowArray = this.shadowRoot.querySelectorAll('#appWindow')
 
     memory.addEventListener('click', (e) => {
       const memoryCreate = document.createElement('memory-game')
@@ -63,11 +64,21 @@ export default class MainWindow extends window.HTMLElement {
       this.indexNumber++
       this.appWindow.appendChild(chatCreate)
     })
+    const paddle = this.shadowRoot.querySelector('#paddle')
+    paddle.addEventListener('click', () => {
+      const paddleCreate = document.createElement('paddle-game')
+      paddleCreate.classList = 'paddleGame'
+      const mainBox = paddleCreate.shadowRoot.querySelector('.mainbox')
+      mainBox.style.zIndex = `${this.indexNumber}`
+      this.zIndex.push(mainBox)
+      this.updateZIndex()
+      this.indexNumber++
+      this.appWindow.appendChild(paddleCreate)
+    })
     this.moveableDiv()
   }
 
   moveableDiv () {
-    // this.appWindow.addEventListener('mousedown', mousedown(memoryGameWindow))
     this.appWindow.addEventListener('mousedown', event => {
       const appWindow = event.target.shadowRoot.querySelector('.mainbox')
       const tempIndex = appWindow.style.zIndex
@@ -82,6 +93,7 @@ export default class MainWindow extends window.HTMLElement {
         const newX = prevX - event.clientX
         const newY = prevY - event.clientY
         const rect = appWindow.getBoundingClientRect()
+        console.log(rect)
         appWindow.style.left = rect.left - newX + 'px'
         appWindow.style.top = rect.top - newY + 'px'
         prevX = event.clientX
