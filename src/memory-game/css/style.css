@@ -12,7 +12,7 @@
 .mainbox {
     position: absolute;
     width: 305px;
-    border: solid 1px grey;
+    border: solid 2px grey;
     border-radius: 5px;
     background-color: #39B54A;
     display: flex;
@@ -27,12 +27,12 @@
     text-align: center;
 }
 
-#imageBox {
+#imagebox {
     text-align: center;
     width: 150px;
 }
 
-#imageBox img{
+#imagebox img{
     width: 75px;
 }
 

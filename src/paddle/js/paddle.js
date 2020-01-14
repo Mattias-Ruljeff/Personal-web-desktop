@@ -1,6 +1,16 @@
 import { gameTemplate } from './gameTemplate.js'
 
-export default class Game extends window.HTMLElement {
+/**
+ * A game of paddle. Hit the top paddle with the ball to gain pints.
+ *
+ * @author Mattias Ruljeff
+ * @version 1.0
+ * @module src/paddle
+ * @customElement 'paddle-game'
+ * @class Paddle
+ * @extends {window.HTMLElement}
+ */
+export default class Paddle extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
@@ -35,7 +45,15 @@ export default class Game extends window.HTMLElement {
     this.highscore = {}
   }
 
+  /**
+   *Adds event listensers to the username-button and the input-field.
+   *Adds event listensers to the left arrow-key and right arrow-key.
+   *Adds event listensers to the reset-game button.
+   *
+   * @memberof Paddle
+   */
   connectedCallback () {
+    console.log(typeof 'white')
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
     const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
     inputyfield.focus()
@@ -85,8 +103,13 @@ export default class Game extends window.HTMLElement {
     clearInterval(this.updateGame)
   }
 
+  /**
+   * Displays the username-startpage and hides the other pages.
+   * Retrieves the highscore from the local storage, if there is one.
+   *
+   * @memberof Paddle
+   */
   userNameEntry () {
-    clearInterval(this.updateGame)
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
     inputyfield.value = ''
     this.usernameBox.classList.remove('hidden')
@@ -98,6 +121,13 @@ export default class Game extends window.HTMLElement {
     }
   }
 
+  /**
+   * Inserts the username in the constructor, resets the game settings
+   * and starts the updateGame interval. If no name is given, prints out
+   * a text in the window to the user, to enter a username.
+   *
+   * @memberof Paddle
+   */
   startGame () {
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
 
@@ -117,19 +147,32 @@ export default class Game extends window.HTMLElement {
     }
   }
 
+  /**
+   * Resets the game settings.
+   *
+   * @memberof Paddle
+   */
   resetGameSetting () {
+    this.score = 0
     this.ballX = this.ballResetValueX
     this.ballY = this.ballResetValueY
     this.ballSpeedX = 2
     this.ballSpeedY = -1.5
-    this._computerPaddleWidth = 150
     this.playerXStart = 200
     this.playerYStart = 480
-    this.computerX = 100
-    this.score = 0
     this.playerPaddleSpeed = 10
+    this.computerX = 100
+    this._computerPaddleWidth = 150
   }
 
+  /**
+   * Stops the gameUpdate and removes the canvas.
+   * Shows the game-over screen.
+   * Adds the player to the local storage, if the user have
+   * beaten the previous scores or has a unique name.
+   *
+   * @memberof Paddle
+   */
   gameReset () {
     clearInterval(this.updateGame)
     this.canvasBox.firstElementChild.remove()
@@ -149,6 +192,11 @@ export default class Game extends window.HTMLElement {
     this.createScoreBoard()
   }
 
+  /**
+   * Gives the top-paddle movement.
+   *
+   * @memberof Paddle
+   */
   computerMovement () {
     this.computerX += this._computerPaddleSpeed
     if ((this.computerX + this._computerPaddleWidth) > this.canvas.width) {
@@ -159,21 +207,31 @@ export default class Game extends window.HTMLElement {
     }
   }
 
+  /**
+   * Updates the canvas with this.fps .
+   * Starts the ball-movement. Changes direction of the ball if it
+   * collides with both sides, the top and both paddles. When it
+   * hits the bottom, game-over.
+   * The ball gets different speeds from hitting the paddles, depending on
+   * how far from the middle of the paddle it hits.
+   *
+   * @memberof Paddle
+   */
   moveUpdate () {
     this.computerMovement()
 
     this.ballX += this.ballSpeedX
     this.ballY += this.ballSpeedY
 
-    // Checks if the ball collides with canvas right side
+    // Checks if the ball collides with canvas right side.
     if (this.ballX > (this.canvas.width - this.ballRadius)) {
       this.ballSpeedX = -this.ballSpeedX
     }
-    // Checks if the ball collides canvas with left side
+    // Checks if the ball collides canvas with left side.
     if (this.ballX < (0 + this.ballRadius)) {
       this.ballSpeedX = -this.ballSpeedX
     }
-    // Check if ball collides with computer-paddle-bottom
+    // Check if ball collides with computer-paddle-bottom, changes either ball speed or top-paddle width.
     if ((this.ballY - this.ballRadius) < (this.computerY + this._paddleHeight) && this.ballX > this.computerX && this.ballX < (this.computerX + this._computerPaddleWidth)) {
       this.ballSpeedY = -this.ballSpeedY
       const deltaX = this.ballX - (this.computerX + (this._computerPaddleWidth / 2))
@@ -187,23 +245,29 @@ export default class Game extends window.HTMLElement {
         this._computerPaddleWidth -= 5
       }
     }
-    // Check if ball collides with player-paddle-top
+    // Check if ball collides with player-paddle-top.
     if ((this.ballY + this.ballRadius) > this.playerYStart && this.ballX > this.playerXStart && this.ballX < (this.playerXStart + this._paddleWidth)) {
       this.ballSpeedY = -this.ballSpeedY
       const deltaX = this.ballX - (this.playerXStart + (this._paddleWidth / 2))
       this.ballSpeedX = deltaX * this.ballDeltaFactor
       this.checkBallSpeed()
     }
-    // Checks if ball collides with the top
+    // Checks if ball collides with the top.
     if (this.ballY < (0 + this.ballRadius)) {
       this.ballSpeedY = -this.ballSpeedY
     }
-    // Checks if ball collides with bottom
+    // Checks if ball collides with bottom.
     if (this.ballY > this.canvas.height) {
       this.gameReset()
     }
   }
 
+  /**
+   * Sets the maximum speed of the ball when hitting the sides of
+   * the paddles.
+   *
+   * @memberof Paddle
+   */
   checkBallSpeed () {
     // Set ballx maxspeed
     if (this.ballSpeedX > 4) {
@@ -215,6 +279,11 @@ export default class Game extends window.HTMLElement {
     }
   }
 
+  /**
+   * Creates the canvas with the width and height of 500.
+   *
+   * @memberof Paddle
+   */
   createcanvas () {
     const createCanvas = document.createElement('canvas')
     createCanvas.id = 'canvas'
@@ -225,6 +294,11 @@ export default class Game extends window.HTMLElement {
     this.ctx = this.canvas.getContext('2d')
   }
 
+  /**
+   * Creates the game-area, the ball, both paddles, the playername-text and score-text in the canvas.
+   *
+   * @memberof Paddle
+   */
   createGameScreen () {
     // Gamescreen
     this.createRectangle(0, 0, this.canvas.height, this.canvas.width, 'black')
@@ -232,7 +306,7 @@ export default class Game extends window.HTMLElement {
     // Score-text
     this.ctx.font = '20px serif'
     this.ctx.fillStyle = 'white'
-    this.ctx.fillText(`Score: ${this.score}`, 200, 50, 100)
+    this.ctx.fillText(`Score: ${this.score}`, 220, 50, 100)
     this.ctx.fillText(`Player name: ${this.username}`, 175, 80, 150)
 
     // Player
@@ -243,6 +317,46 @@ export default class Game extends window.HTMLElement {
     this.createCircle(this.ballX, this.ballY, this.ballRadius, 'white')
   }
 
+  /**
+   * Creates a circle in the canvas with a fill-color.
+   *
+   * @param {Number} posX The circle X-center position in the canvas.
+   * @param {Number} posY The circle Y-center position in the canvas.
+   * @param {Number} radius The radius of the circle.
+   * @param {String} color The circles fill-color.
+   * @memberof Paddle
+   */
+  createCircle (posX, posY, radius, color) {
+    this.ctx.beginPath()
+    this.ctx.fillStyle = color
+    this.ctx.arc(posX, posY, radius, 0, 2 * Math.PI)
+    this.ctx.fill()
+  }
+
+  /**
+   * Creates a rectangle in the canvas with a fill-color.
+   *
+   * @param {Number} posX The rectangles x-start position.
+   * @param {Number} posY The rectangles x-start position.
+   * @param {Number} width The rectangles x-start position.
+   * @param {Number} height The rectangles height.
+   * @param {String} color The rectangles fill-color.
+   * @memberof Paddle
+   */
+  createRectangle (posX, posY, width, height, color) {
+    this.ctx.beginPath()
+    this.ctx.fillStyle = color
+    this.ctx.fillRect(posX, posY, width, height)
+    this.ctx.fill()
+  }
+
+  /**
+   * Creates the scoreboard of the top 5 players, sorted by top score to lowest.
+   * If there is more than 5 players in this.highscore, it
+   * removes the last player and score.
+   *
+   * @memberof Paddle
+   */
   createScoreBoard () {
     const nameAndScore = this.shadowRoot.querySelector('#nameandscore')
     nameAndScore.textContent = `${this.username} got ${this.score} points!`
@@ -276,20 +390,11 @@ export default class Game extends window.HTMLElement {
     }
   }
 
-  createCircle (posX, posY, radius, color) {
-    this.ctx.beginPath()
-    this.ctx.fillStyle = color
-    this.ctx.arc(posX, posY, radius, 0, 2 * Math.PI)
-    this.ctx.fill()
-  }
-
-  createRectangle (posX, posY, width, height, color) {
-    this.ctx.beginPath()
-    this.ctx.fillStyle = color
-    this.ctx.fillRect(posX, posY, width, height)
-    this.ctx.fill()
-  }
-
+  /**
+   * Adds an event listener to the "close-button" on the window.
+   *
+   * @memberof Paddle
+   */
   closeButton () {
     const closeButton = this.shadowRoot.querySelector('.closeWindow')
     closeButton.addEventListener('click', () => {
@@ -298,4 +403,4 @@ export default class Game extends window.HTMLElement {
   }
 }
 
-window.customElements.define('paddle-game', Game)
+window.customElements.define('paddle-game', Paddle)

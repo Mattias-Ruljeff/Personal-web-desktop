@@ -12,7 +12,8 @@ gameTemplate.innerHTML = `
     <input id='usernameinput' type="text" minlength="1" maxlength="100">
     <div id='insertname'>Insert a name!</div>
     <button id='usernamebutton'>PLAY!</button>
-    <p>Play with keyboard! Arrow left and arrow right to move paddle!</p>
+    <p>Play with keyboard!</p>
+    <p>Arrow left and arrow right to move paddle!</p>
 </div>
 
 <div class="canvasbox">

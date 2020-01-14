@@ -1,5 +1,15 @@
 import { memoryTemplate2x2 } from './template.js'
 
+/**
+ * The memory-game.
+ *
+ * @author Mattias Ruljeff
+ * @version 1.0
+ * @module src/memory-game
+ * @customElement 'memory-game'
+ * @class MainWindow
+ * @extends {window.HTMLElement}
+ */
 export default class Memorygame extends window.HTMLElement {
   constructor () {
     super()
@@ -18,6 +28,12 @@ export default class Memorygame extends window.HTMLElement {
     this.gamewidth = ''
   }
 
+  /**
+   * Adds event listensers to all the "choose gamesize" buttons.
+   * The buttons replaces the game-layout.
+   *
+   * @memberof Memorygame
+   */
   connectedCallback () {
     this.createBoard()
     const button = this.shadowRoot.querySelector('#button')
@@ -50,17 +66,17 @@ export default class Memorygame extends window.HTMLElement {
         this.createBoard()
       }
     })
-    const closeButton = this.shadowRoot.querySelector('.closeWindow')
-    closeButton.addEventListener('click', () => {
-      this.remove()
-    })
+    this.closeButton()
   }
 
   disconnectedCallBack () {
-    const imageBox = this.shadowRoot.querySelector('#imageBox')
-    imageBox.removeEventListener('click', () => {})
   }
 
+  /**
+   * Creates an array of numbers for the pictures id.
+   *
+   * @memberof Memorygame
+   */
   createArray () {
     for (let i = 1; i <= (this.rows * this.cols) / 2; i++) {
       this.numberArr.push(i)
@@ -82,6 +98,12 @@ export default class Memorygame extends window.HTMLElement {
     }
   }
 
+  /**
+   * Creates all the images in the game.
+   * Gives all images an id and tabindex.
+   *
+   * @memberof Memorygame
+   */
   createBoard () {
     this.firstClick = undefined
     this.secondClick = undefined
@@ -91,7 +113,7 @@ export default class Memorygame extends window.HTMLElement {
     this.createArray()
     const mainDiv = this.shadowRoot.querySelector('.mainbox')
     const imageBox = document.createElement('div')
-    imageBox.id = 'imageBox'
+    imageBox.id = 'imagebox'
     imageBox.style.width = this.gamewidth
     mainDiv.appendChild(imageBox)
     for (let i = 0; i < this.rows * this.cols; i++) {
@@ -106,13 +128,23 @@ export default class Memorygame extends window.HTMLElement {
     this.makeImageClickable()
   }
 
+  /**
+   * Removes all the images from the #imagebox
+   *
+   * @memberof Memorygame
+   */
   clearBoard () {
-    const imageBox = this.shadowRoot.querySelector('#imageBox')
+    const imageBox = this.shadowRoot.querySelector('#imagebox')
     imageBox.remove()
   }
 
+  /**
+   * Adds event-listeners to the images.
+   *
+   * @memberof Memorygame
+   */
   makeImageClickable () {
-    const imageBox = this.shadowRoot.querySelector('#imageBox')
+    const imageBox = this.shadowRoot.querySelector('#imagebox')
     imageBox.addEventListener('click', (event) => {
       this.checkIfPair(event.target)
     })
@@ -124,7 +156,14 @@ export default class Memorygame extends window.HTMLElement {
     })
   }
 
+  /**
+   * Checks if the images that the user clicked match.
+   *
+   * @param {Object} event The image that the user clicked on.
+   * @memberof Memorygame
+   */
   checkIfPair (event) {
+    console.log(event)
     if (event.nodeName !== 'IMG' || this.secondClick) {
       return
     }
@@ -161,9 +200,26 @@ export default class Memorygame extends window.HTMLElement {
     }
   }
 
+  /**
+   * Adds a message in the memory-window that the player has won.
+   *
+   * @memberof Memorygame
+   */
   winner () {
-    const imageBox = this.shadowRoot.querySelector('#imageBox')
+    const imageBox = this.shadowRoot.querySelector('#imagebox')
     imageBox.textContent = `You won! Number of tries: ${this.numberOfTries}`
+  }
+
+  /**
+   * Adds an event listener to the "close-button" on the window.
+   *
+   * @memberof Memorygame
+   */
+  closeButton () {
+    const closeButton = this.shadowRoot.querySelector('.closeWindow')
+    closeButton.addEventListener('click', e => {
+      this.remove()
+    })
   }
 }
 

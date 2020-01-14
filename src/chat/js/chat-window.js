@@ -1,5 +1,15 @@
 import { chatTemplate } from './template.js'
 
+/**
+ * A chatmodule that uses Web-Sockets
+ *
+ * @author Mattias Ruljeff
+ * @version 1.0
+ * @module src/chat
+ * @customElement 'chat-window'
+ * @class ChatWindow
+ * @extends {window.HTMLElement}
+ */
 export default class ChatWindow extends window.HTMLElement {
   constructor () {
     super()
@@ -15,6 +25,12 @@ export default class ChatWindow extends window.HTMLElement {
     }
   }
 
+  /**
+   * Triggers the chat to check if there is a username, otherwise
+   * asks the user to enter one.
+   *
+   * @memberof ChatWindow
+   */
   connectedCallback () {
     this.checkForUsername()
     this.sendOwnMessage()
@@ -27,6 +43,12 @@ export default class ChatWindow extends window.HTMLElement {
     this.removeEventListener(this.userNameEntry)
   }
 
+  /**
+  * Checks if there is a username stored in local storage.
+  * If not, triggers the userNameEntry()
+  *
+  * @memberof ChatWindow
+  */
   checkForUsername () {
     if (!window.localStorage.username) {
       this.userNameEntry()
@@ -37,10 +59,16 @@ export default class ChatWindow extends window.HTMLElement {
       chatWindow.classList.remove('hidden')
       this.message.username = JSON.parse(window.localStorage.username)
       this.printUsernameInDiv()
-      this.createWebSocket()
+      this.sendAndRetrieveMessages()
     }
   }
 
+  /**
+   * Shows the "enter a username" window.
+   * Adds an event listener to the username-button.
+   *
+   * @memberof ChatWindow
+   */
   userNameEntry () {
     const userNameDiv = this.shadowRoot.querySelector('.username')
     const chatWindow = this.shadowRoot.querySelector('.chatbox')
@@ -54,7 +82,7 @@ export default class ChatWindow extends window.HTMLElement {
       userNameDiv.classList.toggle('hidden')
       chatWindow.classList.toggle('hidden')
       this.printUsernameInDiv()
-      this.createWebSocket()
+      this.sendAndRetrieveMessages()
     })
     inputyfield.addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
@@ -64,6 +92,11 @@ export default class ChatWindow extends window.HTMLElement {
     })
   }
 
+  /**
+   *Prints out the users name in the top of the chat-window.
+   *
+   * @memberof ChatWindow
+   */
   printUsernameInDiv () {
     const usernameDiv = this.shadowRoot.querySelector('#yourUserName')
     usernameDiv.textContent = `Your username: ${this.message.username}`
@@ -78,13 +111,24 @@ export default class ChatWindow extends window.HTMLElement {
     })
   }
 
+  /**
+   *Adds an event listener to the "close-button" on the window.
+   *
+   * @memberof ChatWindow
+   */
   closeButton () {
     const closeButton = this.shadowRoot.querySelector('.closeWindow')
     closeButton.addEventListener('click', (button) => {
+      this.chatSocket.close()
       this.remove()
     })
   }
 
+  /**
+   * Sends the users written message to the chat-server.
+   *
+   * @memberof ChatWindow
+   */
   sendOwnMessage () {
     const inputyfield = this.shadowRoot.querySelector('#chatmessage')
     const button = this.shadowRoot.querySelector('#button')
@@ -101,7 +145,13 @@ export default class ChatWindow extends window.HTMLElement {
     })
   }
 
-  createWebSocket () {
+  /**
+   * Sends the users messages and listens for messages from the
+   * chat-server.
+   *
+   * @memberof ChatWindow
+   */
+  sendAndRetrieveMessages () {
     this.chatSocket.addEventListener('open', () => {
       const message = JSON.stringify(this.message)
       this.chatSocket.send(message)
@@ -112,12 +162,24 @@ export default class ChatWindow extends window.HTMLElement {
     }
   }
 
+  /**
+   *
+   *
+   * @param {Object} message The object to send to the chat-server or the
+   * object retrieved from the chat-server.
+   * @memberof ChatWindow
+   */
   addmessage (message) {
     const messageBox = this.shadowRoot.querySelector('#maincontent')
     const p = document.createElement('p')
     if (message.type === 'notification') {
-    } else if (message.data) {
+    } else if (message.data && message.username === this.message.username) {
+      p.textContent = `You: ${message.data}`
+      p.style.backgroundColor = '#E4D6A7'
+      messageBox.appendChild(p)
+    } else if (message.data && message.username !== this.message.username) {
       p.textContent = `${message.username}: ${message.data}`
+      p.style.backgroundColor = '#E9B44C'
       messageBox.appendChild(p)
     }
     const textMessagesCount = this.shadowRoot.querySelectorAll('#maincontent p')

@@ -56,9 +56,21 @@ body {
 	border: 1px solid rgb(189, 189, 189);
 	border-radius: 5px;
 }
+
+.username h1 {
+	border-bottom: 3px solid #22A9FF;
+	border-top: 3px solid #22A9FF;
+	border-radius: 5px;
+}
 .username p {
 	width: 200px;
+	border-left: 2px dashed #22A9FF;
+	border-right: 2px dashed #22A9FF;
+	border-bottom: 2px dashed #22A9FF;
 	text-align: center;
+	padding: 2px;
+	margin-block-start: 5px;
+	margin-block-end: 5px;
 }
 
 #windowtop{

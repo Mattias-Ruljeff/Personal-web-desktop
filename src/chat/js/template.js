@@ -1,8 +1,16 @@
+/**
+ * @author Mattias Ruljeff
+ * @version 1.0
+ * @module src/chat
+ * @customElement 'chat-window'
+ * @class ChatWindow
+ * @extends {window.HTMLElement}
+ */
 const chatTemplate = document.createElement('template')
 chatTemplate.innerHTML = `
 <link rel="stylesheet" href="chat/css/style.css">
 <div class="mainbox">
-    <div class="windowTop">
+    <div class="windowtop">
         <button class="closeWindow">X</button>
     </div>
 <div class="username">
@@ -29,6 +37,5 @@ chatTemplate.innerHTML = `
     </div>
 </div>
 </div>
-<style>#imageBox {width: 100px;}</style>
 `
 export { chatTemplate }

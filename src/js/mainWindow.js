@@ -3,6 +3,16 @@ import '../memory-game/js/app.js'
 import '../chat/js/app.js'
 import '../paddle/js/app.js'
 
+/**
+ * The main window for the personal web desktop.
+ *
+ * @author Mattias Ruljeff
+ * @version 1.0
+ * @module src/mainWindow
+ * @customElement 'main-window'
+ * @class MainWindow
+ * @extends {window.HTMLElement}
+ */
 export default class MainWindow extends window.HTMLElement {
   constructor () {
     super()
@@ -17,24 +27,32 @@ export default class MainWindow extends window.HTMLElement {
     this.elementArr = []
   }
 
+  /**
+   * Triggers the start of the screen.
+   *
+   * @memberof MainWindow
+   */
   connectedCallback () {
     this.addingEvents()
   }
 
+  /**
+   * Updates all the open app-windows Z-index.
+   *
+   * @memberof MainWindow
+   */
   updateZIndex () {
     for (let i = 0; i < this.zIndex.length; i++) {
       this.zIndex[i].style.zIndex = i
     }
   }
 
-  closeButton () {
-    const closeButton = this.appWindow.shadowRoot.querySelector('.closeWindow')
-    closeButton.addEventListener('click', e => {
-      e.remove()
-      this.elementArr.pop()
-    })
-  }
-
+  /**
+   * Adds the event listerners for all the app-ikons in the
+   * main-window.
+   *
+   * @memberof MainWindow
+   */
   addingEvents () {
     const memory = this.shadowRoot.querySelector('#memory')
 
@@ -75,6 +93,12 @@ export default class MainWindow extends window.HTMLElement {
     this.moveableDiv()
   }
 
+  /**
+   *Makes all the app-windows movable and changes the Z-index of the
+   * targeted app-window.
+   *
+   * @memberof MainWindow
+   */
   moveableDiv () {
     this.appWindow.addEventListener('mousedown', event => {
       const appWindow = event.target.shadowRoot.querySelector('.mainbox')
