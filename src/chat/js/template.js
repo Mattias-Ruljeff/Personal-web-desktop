@@ -11,6 +11,7 @@ chatTemplate.innerHTML = `
 <link rel="stylesheet" href="chat/css/style.css">
 <div class="mainbox">
     <div class="windowtop">
+    <img id='logo' src="../image/chat.bmp" alt="Chat-image">
         <button class="closeWindow">X</button>
     </div>
 <div class="username">
@@ -29,8 +30,15 @@ chatTemplate.innerHTML = `
 
     <div id="mainheader"></div>
     <div id="maincontent"></div>
-
-    <input id='chatmessage' type="text" minlength="1" maxlength="100">
+    
+    <div id="chatwindow">
+        <input id='chatmessage' type="text" minlength="1" maxlength="100">
+        <select name="emoji" id="emoji">
+            <option value=""></option>
+        </select>
+        </div>
+    </div>
+    
 
     <div id="button">
         <button id='send'>Send</button>

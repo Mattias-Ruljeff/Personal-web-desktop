@@ -3,6 +3,7 @@ gameTemplate.innerHTML = `
 <link rel="stylesheet" href="/paddle/css/style.css">
 <div class="mainbox">
 <div id="windowtop">
+    <img id='logo' src="../image/paddle.bmp" alt="Chat-image">
     <button class="closeWindow">X</button>
 </div>
 <div class="username">

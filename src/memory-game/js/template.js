@@ -2,6 +2,7 @@ const memoryTemplate2x2 = document.createElement('template')
 memoryTemplate2x2.innerHTML = `
 <div class="mainbox">
     <div id="windowTop">
+        <img id='logo' src="../image/memory.bmp" alt="Chat-image">
         <button class="closeWindow">X</button>
     </div>
     <div id="header">

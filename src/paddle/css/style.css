@@ -16,6 +16,12 @@ body {
     align-items: center; 
 }
 
+#logo {
+	margin-left: 5px;
+	width: 20px;
+	height: 25px;
+}
+
 #canvas {
 	background-color: black;
 	border: 1px solid grey;
@@ -75,7 +81,7 @@ body {
 
 #windowtop{
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	width: 500px;
 	background-color: #3E885B;
 }

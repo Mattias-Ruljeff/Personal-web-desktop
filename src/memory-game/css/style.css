@@ -23,6 +23,12 @@
     font-family: cursive;
 }
 
+#logo {
+    margin-left: 5px;
+	width: 20px;
+	height: 25px;
+}
+
 #mainheader h2{
     text-align: center;
 }
@@ -64,7 +70,7 @@
 #windowTop {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     height: 25px;
     min-width: 305px;
     background-color: #3E885B;

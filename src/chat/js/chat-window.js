@@ -23,6 +23,7 @@ export default class ChatWindow extends window.HTMLElement {
       channel: 'channel',
       key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
+    this.smileys = [0X1F600, 0X1F603]
   }
 
   /**
@@ -35,6 +36,7 @@ export default class ChatWindow extends window.HTMLElement {
     this.checkForUsername()
     this.sendOwnMessage()
     this.closeButton()
+    this.addSmiley()
   }
 
   disconnectedCallBack () {
@@ -111,17 +113,25 @@ export default class ChatWindow extends window.HTMLElement {
     })
   }
 
-  /**
-   *Adds an event listener to the "close-button" on the window.
-   *
-   * @memberof ChatWindow
-   */
-  closeButton () {
-    const closeButton = this.shadowRoot.querySelector('.closeWindow')
-    closeButton.addEventListener('click', (button) => {
-      this.chatSocket.close()
-      this.remove()
-    })
+  addSmiley () {
+    const emojiBox = this.shadowRoot.querySelector('#emoji')
+    const smileyTable = document.createElement('select')
+    smileyTable.options = 'hej'
+    emojiBox.appendChild(smileyTable)
+    // console.log(this.shadowRoot.querySelectorAll('#emoji div'))
+    // if (emojiBox.firstElementChild) {
+    //   emojiBox.firstElementChild.remove()
+    // }
+    // emojiBox.addEventListener('click', (e) => {
+    //   const div = document.createElement('div')
+    //   this.smileys.forEach((e) => {
+    //     const smiley = document.createElement('p')
+    //     smiley.textContent = String.fromCodePoint(e)
+    //     div.appendChild(smiley)
+    //   })
+    //   emojiBox.zIndex = '999'
+    //   emojiBox.appendChild(div)
+    // })
   }
 
   /**
@@ -183,9 +193,24 @@ export default class ChatWindow extends window.HTMLElement {
       messageBox.appendChild(p)
     }
     const textMessagesCount = this.shadowRoot.querySelectorAll('#maincontent p')
-    if (textMessagesCount.length > 8) {
+    if (textMessagesCount.length > 20) {
       textMessagesCount[0].remove()
     }
+
+    messageBox.scrollTop = messageBox.scrollHeight - messageBox.clientHeight
+  }
+
+  /**
+   *Adds an event listener to the "close-button" on the window.
+   *
+   * @memberof ChatWindow
+   */
+  closeButton () {
+    const closeButton = this.shadowRoot.querySelector('.closeWindow')
+    closeButton.addEventListener('click', (button) => {
+      this.chatSocket.close()
+      this.remove()
+    })
   }
 }
 
