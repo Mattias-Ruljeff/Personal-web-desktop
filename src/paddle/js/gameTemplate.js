@@ -14,7 +14,6 @@ gameTemplate.innerHTML = `
 </div>
 
 <div class="canvasbox">
-    <canvas id='canvas' width='500' height='500'></canvas>
 </div>
 
 <div class="gameover">
