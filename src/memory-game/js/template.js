@@ -19,6 +19,7 @@ memoryTemplate2x2.innerHTML = `
             <button id='gamesize'>4x4</button>
         </div>
     </div>
+    <audio id="tileSound" src="../sounds/imageclick.mp3"></audio>
 </div>
 <link rel="stylesheet" href="/memory-game/css/style.css">
 `

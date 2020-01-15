@@ -23,7 +23,6 @@ export default class ChatWindow extends window.HTMLElement {
       channel: 'channel',
       key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
-    this.smileys = [0X1F600, 0X1F603]
   }
 
   /**
@@ -113,27 +112,6 @@ export default class ChatWindow extends window.HTMLElement {
     })
   }
 
-  addSmiley () {
-    const emojiBox = this.shadowRoot.querySelector('#emoji')
-    const smileyTable = document.createElement('select')
-    smileyTable.options = 'hej'
-    emojiBox.appendChild(smileyTable)
-    // console.log(this.shadowRoot.querySelectorAll('#emoji div'))
-    // if (emojiBox.firstElementChild) {
-    //   emojiBox.firstElementChild.remove()
-    // }
-    // emojiBox.addEventListener('click', (e) => {
-    //   const div = document.createElement('div')
-    //   this.smileys.forEach((e) => {
-    //     const smiley = document.createElement('p')
-    //     smiley.textContent = String.fromCodePoint(e)
-    //     div.appendChild(smiley)
-    //   })
-    //   emojiBox.zIndex = '999'
-    //   emojiBox.appendChild(div)
-    // })
-  }
-
   /**
    * Sends the users written message to the chat-server.
    *
@@ -142,6 +120,7 @@ export default class ChatWindow extends window.HTMLElement {
   sendOwnMessage () {
     const inputyfield = this.shadowRoot.querySelector('#chatmessage')
     const button = this.shadowRoot.querySelector('#button')
+    console.log(inputyfield.value)
     button.addEventListener('click', () => {
       this.message.data = inputyfield.value
       inputyfield.value = ''

@@ -26,6 +26,7 @@ export default class Memorygame extends window.HTMLElement {
     this.numberOfPairs = (this.rows * this.cols) / 2
     this.imageFolder = './memory-game/image/'
     this.gamewidth = ''
+    this.tileSound = this.shadowRoot.querySelector('#tileSound')
   }
 
   /**
@@ -146,6 +147,7 @@ export default class Memorygame extends window.HTMLElement {
   makeImageClickable () {
     const imageBox = this.shadowRoot.querySelector('#imagebox')
     imageBox.addEventListener('click', (event) => {
+      this.playSound(this.tileSound)
       this.checkIfPair(event.target)
     })
     imageBox.addEventListener('keydown', (event) => {
@@ -163,7 +165,6 @@ export default class Memorygame extends window.HTMLElement {
    * @memberof Memorygame
    */
   checkIfPair (event) {
-    console.log(event)
     if (event.nodeName !== 'IMG' || this.secondClick) {
       return
     }
@@ -198,6 +199,18 @@ export default class Memorygame extends window.HTMLElement {
         }
       }
     }
+  }
+
+  /**
+   *
+   *
+   * @param {Id} sound The sound targeted in HTML.
+   * @memberof Memorygame
+   */
+  playSound (sound) {
+    console.log(typeof soud)
+    sound.currentTime = 0
+    sound.play()
   }
 
   /**

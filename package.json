@@ -28,7 +28,10 @@
   "engines": {
     "node": ">=7.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "emojis-keywords": "^2.0.0",
+    "emojis-list": "^3.0.0"
+  },
   "devDependencies": {
     "css-loader": "*",
     "file-loader": "*",

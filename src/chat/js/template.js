@@ -33,16 +33,16 @@ chatTemplate.innerHTML = `
     
     <div id="chatwindow">
         <input id='chatmessage' type="text" minlength="1" maxlength="100">
-        <select name="emoji" id="emoji">
-            <option value=""></option>
-        </select>
-        </div>
     </div>
     
+   <div id="emojidiv">    </div>
+        
 
     <div id="button">
         <button id='send'>Send</button>
     </div>
+</div>
+
 </div>
 </div>
 `
