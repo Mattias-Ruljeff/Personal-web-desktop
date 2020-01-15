@@ -1,8 +1,0 @@
-    all:
--The icon used to open the window should be represented in the upper bar of the window.
- 
-    chat:
--One, by you decided, extended feature.
-
-    memory:
--One, by you decided, extended feature
