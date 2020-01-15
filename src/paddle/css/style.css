@@ -140,3 +140,9 @@ body {
 .hidden {
 	display: none;
 }
+.closeWindow {
+    display: flex;
+    justify-items: flex-end;
+    border-radius: 2px;
+    background-color: #EE6352;
+}
