@@ -4,7 +4,7 @@ import { chatTemplate } from './template.js'
  * A chatmodule that uses Web-Sockets
  *
  * @author Mattias Ruljeff
- * @version 1.0
+ * @version 1.1
  * @module src/chat
  * @customElement 'chat-window'
  * @class ChatWindow
@@ -35,7 +35,6 @@ export default class ChatWindow extends window.HTMLElement {
     this.checkForUsername()
     this.sendOwnMessage()
     this.closeButton()
-    this.addSmiley()
   }
 
   disconnectedCallBack () {
@@ -120,7 +119,6 @@ export default class ChatWindow extends window.HTMLElement {
   sendOwnMessage () {
     const inputyfield = this.shadowRoot.querySelector('#chatmessage')
     const button = this.shadowRoot.querySelector('#button')
-    console.log(inputyfield.value)
     button.addEventListener('click', () => {
       this.message.data = inputyfield.value
       inputyfield.value = ''

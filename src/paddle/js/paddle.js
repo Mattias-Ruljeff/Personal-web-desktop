@@ -4,7 +4,7 @@ import { gameTemplate } from './gameTemplate.js'
  * A game of paddle. Hit the top paddle with the ball to gain pints.
  *
  * @author Mattias Ruljeff
- * @version 1.0
+ * @version 1.1
  * @module src/paddle
  * @customElement 'paddle-game'
  * @class Paddle
@@ -53,7 +53,6 @@ export default class Paddle extends window.HTMLElement {
    * @memberof Paddle
    */
   connectedCallback () {
-    console.log(typeof 'white')
     const inputyfield = this.shadowRoot.querySelector('#usernameinput')
     const userNameButton = this.shadowRoot.querySelector('#usernamebutton')
     inputyfield.focus()
@@ -73,7 +72,6 @@ export default class Paddle extends window.HTMLElement {
     window.addEventListener('keydown', e => {
       // e.preventDefault()
       if (e.code === 'ArrowLeft') {
-        console.log(this.playerPaddleSpeed)
         if (this.playerXStart === 0) {
           this.playerXStart = this.playerXStart
         } else {
@@ -182,11 +180,9 @@ export default class Paddle extends window.HTMLElement {
       if (this.highscore[this.username]) {
         if (this.score > this.highscore[this.username]) { // this.highscore[this.username] = 5
           this.highscore[this.username] = this.score
-          console.log(this.username, this.highscore, 'befintlig spelare har bytt högsta poäng')
         }
       } else {
         this.highscore[this.username] = this.score
-        console.log('nytt namn i highscore')
       }
     }
     this.createScoreBoard()

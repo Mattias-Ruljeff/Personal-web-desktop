@@ -7,7 +7,7 @@ import '../paddle/js/app.js'
  * The main window for the personal web desktop.
  *
  * @author Mattias Ruljeff
- * @version 1.0
+ * @version 1.1
  * @module src/mainWindow
  * @customElement 'main-window'
  * @class MainWindow
@@ -114,7 +114,6 @@ export default class MainWindow extends window.HTMLElement {
         const newX = prevX - event.clientX
         const newY = prevY - event.clientY
         const rect = appWindow.getBoundingClientRect()
-        // console.log(rect)
         appWindow.style.left = rect.left - newX + 'px'
         appWindow.style.top = rect.top - newY + 'px'
         prevX = event.clientX

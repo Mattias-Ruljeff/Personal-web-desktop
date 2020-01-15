@@ -1,3 +1,10 @@
+/**
+ * @author Mattias Ruljeff
+ * @version 1.1
+ * @module src/memory-game
+ * @class ChatWindow
+ * @extends {window.HTMLElement}
+ */
 const gameTemplate = document.createElement('template')
 gameTemplate.innerHTML = `
 <link rel="stylesheet" href="/paddle/css/style.css">

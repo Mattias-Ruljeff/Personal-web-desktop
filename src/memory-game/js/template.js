@@ -1,3 +1,10 @@
+/**
+ * @author Mattias Ruljeff
+ * @version 1.1
+ * @module src/memory-game
+ * @class ChatWindow
+ * @extends {window.HTMLElement}
+ */
 const memoryTemplate2x2 = document.createElement('template')
 memoryTemplate2x2.innerHTML = `
 <div class="mainbox">

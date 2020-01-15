@@ -4,7 +4,7 @@ import { memoryTemplate2x2 } from './template.js'
  * The memory-game.
  *
  * @author Mattias Ruljeff
- * @version 1.0
+ * @version 1.1
  * @module src/memory-game
  * @customElement 'memory-game'
  * @class MainWindow
@@ -204,11 +204,10 @@ export default class Memorygame extends window.HTMLElement {
   /**
    *
    *
-   * @param {Id} sound The sound targeted in HTML.
+   * @param {Object} sound The sound targeted in HTML.
    * @memberof Memorygame
    */
   playSound (sound) {
-    console.log(typeof soud)
     sound.currentTime = 0
     sound.play()
   }
