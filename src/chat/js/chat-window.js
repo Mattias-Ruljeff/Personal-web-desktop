@@ -10,7 +10,7 @@ import { chatTemplate } from './template.js'
  * @class ChatWindow
  * @extends {window.HTMLElement}
  */
-export default class ChatWindow extends window.HTMLElement {
+class ChatWindow extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })

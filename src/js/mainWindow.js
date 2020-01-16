@@ -1,7 +1,4 @@
 import { mainTemplate } from './maintemplate.js'
-import '../memory-game/js/app.js'
-import '../chat/js/app.js'
-import '../paddle/js/app.js'
 
 /**
  * The main window for the personal web desktop.
@@ -13,7 +10,7 @@ import '../paddle/js/app.js'
  * @class MainWindow
  * @extends {window.HTMLElement}
  */
-export default class MainWindow extends window.HTMLElement {
+class MainWindow extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
@@ -58,15 +55,15 @@ export default class MainWindow extends window.HTMLElement {
 
     memory.addEventListener('click', (e) => {
       const memoryCreate = document.createElement('memory-game')
-      memoryCreate.classList = 'memoryGameWindow'
-      memoryCreate.id = this.indexNumber
-      const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
-      mainBox.style.zIndex = `${this.indexNumber}`
-      this.appWindow.appendChild(memoryCreate)
-      this.zIndex.push(mainBox)
-      this.updateZIndex()
-      this.indexNumber++
       this.elementArr.push(memoryCreate)
+      this.appWindow.appendChild(memoryCreate)
+      // memoryCreate.classList = 'memoryGameWindow'
+      // memoryCreate.id = this.indexNumber
+      // const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
+      // mainBox.style.zIndex = `${this.indexNumber}`
+      // this.zIndex.push(mainBox)
+      // this.updateZIndex()
+      // this.indexNumber++
     })
     const chat = this.shadowRoot.querySelector('#chat')
     chat.addEventListener('click', () => {

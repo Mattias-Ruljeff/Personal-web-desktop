@@ -73,7 +73,6 @@ input {
 #chatwindow {
 	display: flex;
 	flex-direction: row;
-	width: 150px;
 	margin-top: 5px;
 }
 

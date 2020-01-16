@@ -10,7 +10,7 @@ import { memoryTemplate2x2 } from './template.js'
  * @class MainWindow
  * @extends {window.HTMLElement}
  */
-export default class Memorygame extends window.HTMLElement {
+class Memorygame extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
