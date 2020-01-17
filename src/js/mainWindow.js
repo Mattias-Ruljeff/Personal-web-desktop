@@ -53,17 +53,17 @@ class MainWindow extends window.HTMLElement {
   addingEvents () {
     const memory = this.shadowRoot.querySelector('#memory')
 
-    memory.addEventListener('click', (e) => {
+    memory.addEventListener('click', () => {
       const memoryCreate = document.createElement('memory-game')
       this.elementArr.push(memoryCreate)
+      memoryCreate.classList = 'memoryGameWindow'
+      memoryCreate.id = this.indexNumber
+      const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
+      mainBox.style.zIndex = `${this.indexNumber}`
+      this.zIndex.push(mainBox)
+      this.updateZIndex()
+      this.indexNumber++
       this.appWindow.appendChild(memoryCreate)
-      // memoryCreate.classList = 'memoryGameWindow'
-      // memoryCreate.id = this.indexNumber
-      // const mainBox = memoryCreate.shadowRoot.querySelector('.mainbox')
-      // mainBox.style.zIndex = `${this.indexNumber}`
-      // this.zIndex.push(mainBox)
-      // this.updateZIndex()
-      // this.indexNumber++
     })
     const chat = this.shadowRoot.querySelector('#chat')
     chat.addEventListener('click', () => {
@@ -107,6 +107,7 @@ class MainWindow extends window.HTMLElement {
       window.addEventListener('mouseup', mouseUp)
       let prevX = event.clientX
       let prevY = event.clientY
+
       function mouseMove (event) {
         const newX = prevX - event.clientX
         const newY = prevY - event.clientY

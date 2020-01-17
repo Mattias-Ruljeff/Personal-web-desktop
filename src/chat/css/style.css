@@ -69,6 +69,10 @@ input {
 	background-color: gainsboro;
 	overflow: auto;
 }
+#maincontent p {
+	width: 300px;
+	overflow-wrap: break-word;
+}
 
 #chatwindow {
 	display: flex;
