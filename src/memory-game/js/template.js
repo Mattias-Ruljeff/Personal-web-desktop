@@ -1,6 +1,6 @@
 /**
  * @author Mattias Ruljeff
- * @version 1.1
+ * @version 1.2
  * @module src/memory-game
  * @class ChatWindow
  * @extends {window.HTMLElement}

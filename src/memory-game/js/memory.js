@@ -4,7 +4,7 @@ import { memoryTemplate2x2 } from './template.js'
  * The memory-game.
  *
  * @author Mattias Ruljeff
- * @version 1.1
+ * @version 1.2
  * @module src/memory-game
  * @customElement 'memory-game'
  * @class MainWindow

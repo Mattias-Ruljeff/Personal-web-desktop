@@ -4,7 +4,7 @@ import { gameTemplate } from './gameTemplate.js'
  * A game of paddle. Hit the top paddle with the ball to gain pints.
  *
  * @author Mattias Ruljeff
- * @version 1.1
+ * @version 1.2
  * @module src/paddle
  * @customElement 'paddle-game'
  * @class Paddle

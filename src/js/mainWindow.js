@@ -4,7 +4,7 @@ import { mainTemplate } from './maintemplate.js'
  * The main window for the personal web desktop.
  *
  * @author Mattias Ruljeff
- * @version 1.1
+ * @version 1.2
  * @module src/mainWindow
  * @customElement 'main-window'
  * @class MainWindow
