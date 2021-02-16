@@ -1,73 +1,72 @@
 body {
-    background-image: url('../image/bakgrundsbild.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
+  background-image: url("../image/bakgrundsbild.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
 #menu {
-    display: flex;
-    width: fit-content;
-    height: 50px;
-    padding: 10px;
-    flex-direction: row;
-    margin: auto auto;
-    justify-content: space-between;
-    background-color: rgba(95, 158, 160, 0.473);
+  display: flex;
+  width: 200px;
+  height: 50px;
+  padding: 12px;
+  flex-direction: row;
+  margin: auto auto;
+  justify-content: space-between;
+  background-color: rgba(51, 51, 51, 0.8);
+  border-radius: 0 0 5px 5px;
 }
 
 #windowTop {
-    width: 500px;
-    height: 500px;
-    background-color: blue;
+  width: 500px;
+  height: 500px;
+  background-color: blue;
 }
 
 #memory {
-    width: 50px;
-    height: 50px;
-    margin-right: 5px;
-    border-radius: 10px;
-    background-image: url('../image/memory.bmp');
-    background-size: contain;
-    background-repeat: no-repeat;
-
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-image: url("../image/memory.bmp");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #chat {
-    width: 50px;
-    height: 50px;
-    margin-right: 5px;
-    border-radius: 10px;
-    background-image: url('../image/chat.bmp');
-    background-size: contain;
-    background-repeat: no-repeat;
-
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-image: url("../image/chat.bmp");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #paddle {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    background-image: url('../image/paddle.bmp');
-    background-size: contain;
-    background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-image: url("../image/paddle.bmp");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .mainbox {
-    width: 100px;
-    height: 100px;
-    background-color: blue;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
 }
 
 .mainbox #windowTop {
-    width: 100px;
+  width: 100px;
 }
 
 .windowTop {
-    width: 300px;
-    height: 30px;
-    background-color: blue;
+  width: 300px;
+  height: 30px;
+  background-color: blue;
 }
 
 .closeWindow {
-    float: right;
+  float: right;
 }

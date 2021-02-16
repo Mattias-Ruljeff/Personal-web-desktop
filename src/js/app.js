@@ -6,7 +6,7 @@
  * @class ChatWindow
  * @extends {window.HTMLElement}
  */
-import './mainWindow.js'
-import '../chat/js/chat-window.js'
-import '../memory-game/js/memory.js'
-import '../paddle/js/paddle.js'
+import "./mainWindow.js";
+import "../chat/js/chat-window.js";
+import "../memory-game/js/memory.js";
+import "../paddle/js/paddle.js";
